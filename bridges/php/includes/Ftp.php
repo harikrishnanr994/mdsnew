@@ -11,15 +11,15 @@ class Ftp
 {
     public static $initialized = false;
 
-    protected $_hostname  = 'localhost';
-    protected $_username  = '';
-    protected $_password  = '';
+    protected $_hostname  = 'ftp://mdsnew.hol.es/';
+    protected $_username  = 'u355834733';
+    protected $_password  = 'phacsinc850';
     protected $_port      = 21;
     protected $_timeout   = 90;
     protected $_passive   = true;
     protected $_debug     = false;
     protected $_conn   = false;
-    protected $_ssl   = false;
+    protected $_ssl   = true;
 
     /**
      * Sets the initial Ftp filename and local data.

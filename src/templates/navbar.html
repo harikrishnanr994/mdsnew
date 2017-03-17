@@ -25,7 +25,9 @@
                                 <input type="text" class="form-control" ng-show="config.searchForm" placeholder="{{'search' | translate}}..." ng-model="$parent.query">
                             </div>
                         </div>
-
+                        <button class="btn btn-flat btn-sm" ng-click="$parent.setTemplate('login.html')" ng-show="$parent.viewTemplate !=='login.html'" title="{{'logout' | translate}}">
+                            <i class="glyphicon glyphicon-lock"></i>
+                        </button>
                         <button class="btn btn-flat btn-sm" ng-click="$parent.setTemplate('main-icons.html')" ng-show="$parent.viewTemplate !=='main-icons.html'" title="{{'icons' | translate}}">
                             <i class="glyphicon glyphicon-th-large"></i>
                         </button>
@@ -74,6 +76,7 @@
                                         <i class="glyphicon glyphicon-cloud-upload"></i> {{"upload_files" | translate}}
                                     </a>
                                 </li>
+
                             </ul>
                         </div>
                     </div>

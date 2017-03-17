@@ -5,7 +5,7 @@ namespace AngularFilemanager\LocalBridge;
  * File Manager API Class
  *
  * Made for PHP Local filesystem bridge for angular-filemanager to handle file manipulations
- * @author       harikrishnan <harikrishnanr994@gmail.com> 
+ * @author       harikrishnan <harikrishnanr994@gmail.com>
  */
 class FileManagerApi
 {

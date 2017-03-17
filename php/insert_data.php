@@ -5,15 +5,18 @@
          $imei=$_GET['imei'];
          $fileid=$_GET['fileid'];
          $pieceid=$_GET['pieceid'];
-         $sqlstring="SELECT * FROM users WHERE imei='$imei'";
-         $result=mysqli_query($con,$sqlstring);
          $data = array();
-         $row = $result->fetch_row();
-         $sqlstring1="SELECT * FROM encrypted WHERE fileid='$fileid' AND pieceid='$pieceid'";
-         $result1=mysqli_query($con,$sqlstring1);
-         $data = array();
-         $data[] = $result1->fetch_row(MYSQL_ASSOC);
-        echo json_encode($data,JSON_FORCE_OBJECT);
+         $sqlstring1="SELECT * FROM encrypted WHERE fileid='$fileid' and pieceid='$pieceid'";
+         $result1 = mysqli_query($con, $sqlstring1);
+            if (mysqli_num_rows($result1) > 0) {
+               // output data of each row
+                while($row1 = mysqli_fetch_assoc($result1)) {
+                 $data[] = $row1;
+                }
+           print json_encode($data, JSON_FORCE_OBJECT);
+             } else {
+               echo "0 results";
+        }
   }
 
 ?>

@@ -1,7 +1,6 @@
 <?php
 namespace AngularFilemanager\LocalBridge;
 
-/**
  * File Manager API Class
  *
  * Made for PHP Local filesystem bridge for angular-filemanager to handle file manipulations
@@ -221,6 +220,7 @@ class FileManagerApi
                 $file['tmp_name'],
                 rtrim($path, '/') . '/' . $file['name']
             );
+
             if ($uploaded === false) {
                 return false;
             }
@@ -228,6 +228,7 @@ class FileManagerApi
 
         return true;
     }
+
 
     private function listAction($path)
     {

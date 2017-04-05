@@ -1,5 +1,6 @@
 to compress , encrypt and split the file . use compress1.php?id=1
 
+
 the file is static now . need to set the file name while uploading itself.
 
 zip files are created in zips folder.
@@ -53,7 +54,6 @@ $encrypted_text1 =$data;
            //}
     }
 
-
     Decrypt is the reverse of the encrypt funtion
     function decrypt($encrypted_text,$file,$dir,$con)
     {
@@ -61,8 +61,11 @@ $encrypted_text1 =$data;
       $encrypted_text1 = base64_decode($encrypted_text); :  The fetched data is again converted back to bytedata .
       $decrypted_file = openssl_decrypt($encrypted_text1,"AES-256-CBC",$file,OPENSSL_RAW_DATA,$iv);
       $file_to_decrypt = base64_decode($decrypted_file);
+
+
       echo file_put_contents($dir."zips/".$file.'_1.zip',$file_to_decrypt);
       echo "<br>decrypted<br>"; decryption is possible but the file is corrupted when trying to decompress.
+
       $decompressed = decompress($dir.$file.'_1.zip',$dir);
      if ($decompressed == $file)
       return(TRUE);
@@ -70,7 +73,7 @@ $encrypted_text1 =$data;
        echo "File corrupted";
      }
     }
-
+    
     function decompress($filename1,$dir){
     $zip = new ZipArchive;
     $res = $zip->open($filename1);

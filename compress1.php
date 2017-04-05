@@ -36,13 +36,13 @@ if(isset($_GET['fileid'])&&isset($_GET['pieceid']))
 
            $sqlstring="SELECT data FROM encrypted WHERE fileid='$file' order by pieceid ";
            $result=mysqli_query($con,$sqlstring);
-           $data = "";
+           $data="";
            $row = mysqli_fetch_assoc($result);
            $data .=$row['data'];
            echo $data;
            $encrypted_text1 =$data;
 
-           //$result=decrypt($encrypted_text1,$file,$dir,$con);
+           $result=decrypt($encrypted_text1,$file,$dir,$con);
            //if($result==TRUE){
              //fclose($dir.$file.'.zip');
              //unlink($dir.$file.'.zip') or die("Couldn't delete zip");
@@ -66,7 +66,7 @@ if(isset($_GET['fileid'])&&isset($_GET['pieceid']))
           $str = file_get_contents($filename1);
 
 
-      $zipname = $dir."zips/".$file.'.zip';
+          $zipname = $dir."zips/".$file.'.zip';
           $zip = new ZipArchive;
           if ($zip->open($zipname,  ZipArchive::CREATE)) {
             echo 'Archive created!';
@@ -139,7 +139,8 @@ if(isset($_GET['fileid'])&&isset($_GET['pieceid']))
     function decrypt($encrypted_text,$file,$dir,$con)
     {
       $iv = (hash('crc32', $file). hash('crc32', $file));
-      $decrypted_file = openssl_decrypt($encrypted_text,"AES-256-CBC",$file,OPENSSL_RAW_DATA,$iv);
+      $encrypted_text1 = base64_decode($encrypted_text);
+      $decrypted_file = openssl_decrypt($encrypted_text1,"AES-256-CBC",$file,OPENSSL_RAW_DATA,$iv);
       $file_to_decrypt = base64_decode($decrypted_file);
       echo file_put_contents($dir."zips/".$file.'_1.zip',$file_to_decrypt);
       echo "<br>decrypted<br>";

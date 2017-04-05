@@ -1,6 +1,6 @@
 to compress , encrypt and split the file . use compress1.php?id=1
 
-the file is static now . need to set the file name while uploading itself. 
+the file is static now . need to set the file name while uploading itself.
 
 zip files are created in zips folder.
 
@@ -11,11 +11,11 @@ $zipname = $dir."zips/".$file.'.zip'; : create a zip file in zips folder.
 
 $file_to_encrypt = base64_encode(file_get_contents($zipname)); :  convert the zip file to base64 .
 
-encrypt($file_to_encrypt,$file,$dir,$con); : encryption function. 
+encrypt($file_to_encrypt,$file,$dir,$con); : encryption function.
 
 $iv = (hash('crc32', $file). hash('crc32', $file)); : create an IV from the hash of file.
 
-$encrypted_text =  openssl_encrypt($file_to_encrypt1,"AES-256-CBC",$file,OPENSSL_RAW_DATA,$iv); : This is the encryption funtion of php. 
+$encrypted_text =  openssl_encrypt($file_to_encrypt1,"AES-256-CBC",$file,OPENSSL_RAW_DATA,$iv); : This is the encryption funtion of php.
 
 $data = base64_encode($encrypted_text); :t he output of the openssl_encrypt is byte data which cannot be saved . so it is converted to text.
 
@@ -26,7 +26,7 @@ $data1 = substr($data, 0, 102400); splitting the string into 100KB (102400 chars
 $theRest = substr($data, 102400); saving the rest into another variable.
 
 $sqlString = "INSERT INTO encrypted(fileid,pieceid,data)VALUES('$fileid','$pieceid','$data1')";
-       
+
 $detail = mysqli_query($con,$sqlString) OR die(mysqli_error($con));
 
 
@@ -52,8 +52,8 @@ $encrypted_text1 =$data;
              //echo "<br>File corrupt";
            //}
     }
-    
-    
+
+
     Decrypt is the reverse of the encrypt funtion
     function decrypt($encrypted_text,$file,$dir,$con)
     {
@@ -61,8 +61,8 @@ $encrypted_text1 =$data;
       $encrypted_text1 = base64_decode($encrypted_text); :  The fetched data is again converted back to bytedata .
       $decrypted_file = openssl_decrypt($encrypted_text1,"AES-256-CBC",$file,OPENSSL_RAW_DATA,$iv);
       $file_to_decrypt = base64_decode($decrypted_file);
-      echo file_put_contents($dir."zips/".$file.'_1.zip',$file_to_decrypt); 
-      echo "<br>decrypted<br>"; decryption is possible but the file is corrupted when trying to decompress. 
+      echo file_put_contents($dir."zips/".$file.'_1.zip',$file_to_decrypt);
+      echo "<br>decrypted<br>"; decryption is possible but the file is corrupted when trying to decompress.
       $decompressed = decompress($dir.$file.'_1.zip',$dir);
      if ($decompressed == $file)
       return(TRUE);
@@ -70,7 +70,7 @@ $encrypted_text1 =$data;
        echo "File corrupted";
      }
     }
-    
+
     function decompress($filename1,$dir){
     $zip = new ZipArchive;
     $res = $zip->open($filename1);

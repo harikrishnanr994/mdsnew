@@ -29,6 +29,8 @@ $sqlString = "INSERT INTO encrypted(fileid,pieceid,data)VALUES('$fileid','$piece
        
 $detail = mysqli_query($con,$sqlString) OR die(mysqli_error($con));
 
+
+use compress1.php?id=3&fileid=hash of file();
 ///////// decrytion and decompression /////
 if ($action==3){
 

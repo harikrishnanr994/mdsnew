@@ -1,4 +1,5 @@
 <?php
+
    function zippy($dir,$con,$file_to_compress,$file){
      echo $file;
    $zipname = "zips/".$file.'.zip';
@@ -30,6 +31,14 @@
       echo "Encrypted";
       unlink($dir.$file_to_compress);
       unlink("zips/".$file.'.zip');
+      $save1 = "UPDATE files SET compressed=1,encrypted =1 WHERE fileid='$file'";
+      $detail = mysqli_query($con,$save1) OR die(mysqli_error($con));
+      if($detail==TRUE){
+        $URL="php/checkphone.php";
+    	 	echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
+    		echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
+
+      }
     }
     else
     {

@@ -39,7 +39,7 @@ if(isset($_GET['fileid'])&&isset($_GET['pieceid']))
            $data="";
            $row = mysqli_fetch_assoc($result);
            $data .=$row['data'];
-           echo $data;
+           //echo $data;
            $encrypted_text1 =$data;
 
            $result=decrypt($encrypted_text1,$file,$dir,$con);
@@ -64,7 +64,6 @@ if(isset($_GET['fileid'])&&isset($_GET['pieceid']))
     {
           echo $filename1."<br>";
           $str = file_get_contents($filename1);
-
 
           $zipname = $dir."zips/".$file.'.zip';
           $zip = new ZipArchive;
@@ -140,6 +139,7 @@ if(isset($_GET['fileid'])&&isset($_GET['pieceid']))
     {
       $iv = (hash('crc32', $file). hash('crc32', $file));
       $encrypted_text1 = base64_decode($encrypted_text);
+      echo "<br>".$encrypted_text1;
       $decrypted_file = openssl_decrypt($encrypted_text1,"AES-256-CBC",$file,OPENSSL_RAW_DATA,$iv);
       $file_to_decrypt = base64_decode($decrypted_file);
       echo file_put_contents($dir."zips/".$file.'_1.zip',$file_to_decrypt);

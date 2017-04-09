@@ -8,14 +8,14 @@
              $data[] = $row['imei'];
              }
    function sendMessageThroughGCM($registration_ids, $message) {
-		//Google cloud messaging GCM-API url
+    //Google cloud messaging GCM-API url
         $url = 'https://android.googleapis.com/gcm/send';
         $fields = array(
             'registration_ids' => $registration_ids,
             'data' => $message,
         );
-		// Update your Google Cloud Messaging API Key
-		define("GOOGLE_API_KEY", "AIzaSyAZkvlEZxGIsuMhhlvCLM750GiloYfEa78"); 		
+    // Update your Google Cloud Messaging API Key
+    define("GOOGLE_API_KEY", "AIzaSyAZkvlEZxGIsuMhhlvCLM750GiloYfEa78");    
         $headers = array(
             'Authorization: key=' . GOOGLE_API_KEY,
             'Content-Type: application/json'
@@ -25,38 +25,29 @@
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt ($ch, CURLOPT_SSL_VERIFYHOST, 0);	
+    curl_setopt ($ch, CURLOPT_SSL_VERIFYHOST, 0); 
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-        $result = curl_exec($ch);				
+        $result = curl_exec($ch);       
         if ($result === FALSE) {
             die('Curl failed: ' . curl_error($ch));
         }
         curl_close($ch);
         return $result;
     }
-  if(isset($_GET['imei']))
-   {
-         $imei=$_GET['imei'];
-         $sqlstring="SELECT gcm_id FROM users WHERE imei='$imei'";
-         $result=mysqli_query($con,$sqlstring);
+         $sqlString = "SELECT * FROM users";
          $data = array();
-         $row = $result->fetch_row();
-         $data[0]=$row[0];
-         $gcm_id =$data[0];
-         $sqlstring="SELECT * FROM send WHERE imei='$imei'";
-         $result=mysqli_query($con,$sqlstring);
-         $num_rows = mysqli_num_rows($result);
-         echo $num_rows;
-         if($num_rows!=0)
+         $gcmRegID = mysqli_query($con,$sqlString) OR die(mysqli_error($con));
+         while(($row = mysqli_fetch_array($gcmRegID)))
          {
-         echo "Yoo";
-         $field=array("type"=>"Checkphone");
-         $message = array("m" => json_encode($field));
-         $pushStatus = sendMessageThroughGCM($data, $message);	
-         echo $pushStatus;
+           $data[] = $row['gcm_id'];
          }
-         else
-            echo "Error";
-   }
+         $field=array("type"=>"Checkphone");
+	 if (isset($gcmRegID) && isset($field))
+          {		
+	   echo "Yoo";
+           $message = array("m" => json_encode($field));
+           $pushStatus = sendMessageThroughGCM($data, $message);  
+           echo $pushStatus;
+	   }        
 ?>

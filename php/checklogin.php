@@ -6,7 +6,6 @@ $link = new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABASE) or die("Connection F
         printf("Connect failed: %s\n", mysqli_connect_error());
         exit();
     }
-    
     $email= mysqli_real_escape_string($link, $_POST['email']);
     $password = mysqli_real_escape_string($link, $_POST['password']);
  

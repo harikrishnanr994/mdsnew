@@ -16,7 +16,7 @@
            print json_encode($data,JSON_PRETTY_PRINT);
              } else {
                echo "0 results";
-        }       
+        }
   }
 
 ?>
